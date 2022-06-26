@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">MOBILE APP</string>
+    <string name="login">Login</string>
+    <string name="user_email_tld">User@email.tld</string>
+    <string name="password">Password</string>
+    <string name="send">Send</string>
+    <string name="todo">TODO</string>
+    <string name="finger_print">Do you want to use your finger to login next time?</string>
+    <string name="confirmation_number">Please enter your One Time Password</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="home">Home</string>
+    <string name="items">Items</string>
+    <string name="action">Action</string>
+    <string name="me">Me</string>
+    <string name="config">Config</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
+    <string name="Language">Language</string>
+    <string name="Language2">English</string>
+    <string name="fingerprint">Login using fingerprint</string>
+    <string name="tittleConfig">Last Items Update</string>
+    <string name="localDatabase">Items in local database</string>
+    <string name="BaseUrl">Base URL for API</string>
+    <string name="viewDetails">VIEW DETAILS</string>
+    <string name="passwordError">La contraseña es obligatoria</string>
+    <string name="emailError">El correo es obligatorio</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

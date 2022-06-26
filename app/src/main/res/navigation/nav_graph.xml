@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.mobiledemo.ui.fragments.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_confirmation"
+            app:destination="@id/confirmation" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmation"
+        android:name="com.example.mobiledemo.ui.fragments.Confirmation"
+        android:label="fragment_confirmation"
+        tools:layout="@layout/fragment_confirmation" >
+        <action
+            android:id="@+id/action_confirmation_to_fingerPrint"
+            app:destination="@id/fingerPrint" />
+    </fragment>
+    <fragment
+        android:id="@+id/fingerPrint"
+        android:name="com.example.mobiledemo.ui.fragments.FingerPrint"
+        android:label="fragment_finger_print"
+        tools:layout="@layout/fragment_finger_print" >
+        <action
+            android:id="@+id/action_fingerPrint_to_mainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainScreen"
+        android:name="com.example.mobiledemo.ui.fragments.MainScreen"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" />
+</navigation>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_items"
+            android:icon="@drawable/ic_baseline_inventory_24"
+            android:title="items" />
+        <item
+            android:id="@+id/nav_me"
+            android:icon="@drawable/ic_user"
+            android:title="profile" />
+    </group>
+
+    <item android:title="Title 1">
+        <menu>
+            <item
+                android:id="@+id/nav_config"
+                android:icon="@drawable/ic_control"
+                android:title="settings" />
+        </menu>
+    </item>
+
+</menu>
