@@ -107,9 +107,5 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         fragmentTransaction.commit()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.overflow, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
 }
