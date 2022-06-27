@@ -8,6 +8,7 @@ class Prefs (private val context: Context){
     private val SHARED_NAME = "MyDataBase"
     private val SHARED_PHONE = ""
     private val DEVICE_TOKEN = ""
+    private val XTOKEN = ""
     private val storage = context.getSharedPreferences(SHARED_NAME, 0)
 
     // METODO PARA GUARDAR EL CORREO DEL USUAIRO
@@ -31,6 +32,17 @@ class Prefs (private val context: Context){
     // METODO PARA RETORNAR EL CORREO DEL USUARIO
     fun getPhone(): String{
         return storage.getString(SHARED_PHONE, "")!!
+    }
+
+
+    // METODO PARA GUARDAR EL X-TOKEN
+    fun saveXToken(xToke: String){
+        storage.edit().putString(XTOKEN, xToke).apply()
+    }
+
+    // METODO PARA RECUPERAR EL X-TOKEN
+    fun getXToken(): String{
+        return storage.getString(XTOKEN, "")!!
     }
 
     // METODO PARA ELIMINAR TODOS LOS DATOS ALMANCENADOS

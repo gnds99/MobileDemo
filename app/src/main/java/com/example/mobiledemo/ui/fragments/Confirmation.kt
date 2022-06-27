@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mobiledemo.core.Options
 import com.example.mobiledemo.databinding.FragmentConfirmationBinding
 import com.example.mobiledemo.ui.viewModel.AppViewModel
 
@@ -15,6 +16,9 @@ import com.example.mobiledemo.ui.viewModel.AppViewModel
 class Confirmation : Fragment() {
     // ViewModel
     private val sharedVieModel: AppViewModel by activityViewModels()
+
+    // Cadena otp
+    lateinit var numberChain: String
 
     private var _binding: FragmentConfirmationBinding? = null
     private val binding get() = _binding!!
@@ -28,8 +32,8 @@ class Confirmation : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
-        _binding = FragmentConfirmationBinding.inflate(inflater, container,false)
+    ): View {
+        _binding = FragmentConfirmationBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -37,40 +41,56 @@ class Confirmation : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedVieModel.otp.observe(viewLifecycleOwner){
-            showMessage(sharedVieModel.otp.value.toString())
+        // VERIFICAMOS EL CAMBIO DE DATO EN EL VIEWMODEL
+        sharedVieModel.otp.observe(viewLifecycleOwner) {
+            showMessage(sharedVieModel.otp.value.toString()) // MOSTRAMOS EN PANTALLA EL CODIGO
+
         }
 
+        // VERIFICAMOS EL CAMBIO DE DATO EN EL VIEWMODEL
+        sharedVieModel.verificactionOtp.observe(viewLifecycleOwner) {
+            // VERIFICACAMOS SI EL CAMBIO FUE EXITOSO
+            if (sharedVieModel.verificactionOtp.value == Options.YES) {
+                this.goToNextScreen() // NOS NOVEMOS A LA SIGUIENTE PANTALLA
+            } else if (sharedVieModel.verificactionOtp.value == Options.NO) {
+                // MOSTRAMOS UN MENSAJE SI AUN NO SE REALIZA EL CAMBIO
+                this.showMessage("El codigo es incorrecto")
+            }
+        }
+
+        // BOTON QUE REALIZA UNA ACCION
         binding.btnSend.setOnClickListener {
+            // VERIFICAMOS QUE EXISTAN DATOS
+            if (dataVerification()) {
+                sharedVieModel.StarVerificationOtp(numberChain) // VERIFICAMOS EL OTP
+            } else {
+                // MOSTRAMOS MENSAJE SI NO EXISTEN DATOS
+                showMessage("El codigo es incorrecto")
+            }
 
         }
     }
 
-    private fun dataVerification(): Boolean{
-        val numberChain = binding.txtOne.editText?.text.toString() +
+    // METODO QUE VERIFICA QUE EXISTAN DATOS EN LOS CAMPOS
+    private fun dataVerification(): Boolean {
+        numberChain = binding.txtOne.editText?.text.toString() +
                 binding.txtTwo.editText?.text.toString() +
                 binding.txtThree.editText?.text.toString() +
                 binding.txtFour.editText?.text.toString()
-        if(numberChain.isNotEmpty() && numberChain.length == 4)
+        if (numberChain.isNotEmpty() && numberChain.length == 4)
             return true
         return false
     }
 
-    private fun OtpVerification()
-    {
 
-    }
-
-
-
-
-
+    // METODO QUE NOS LLEVA A LA SIGUIENTE PANTALLA
     private fun goToNextScreen()
     {
         val action = ConfirmationDirections.actionConfirmationToFingerPrint()
         findNavController().navigate(action)
     }
 
+    // METODO QUE MUESTRA UN MENSAJE
     private fun showMessage(mensaje: String)
     {
         Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()

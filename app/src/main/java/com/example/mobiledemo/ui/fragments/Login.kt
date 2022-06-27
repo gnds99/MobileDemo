@@ -43,7 +43,7 @@ class Login : Fragment() {
         sharedVieModel.login.observe(viewLifecycleOwner) {
             // VERIFICACAMOS SI EL CAMBIO FUE EXITOSO
             if (sharedVieModel.login.value == Options.YES) {
-                this.goToNextScreen()
+                this.goToNextScreen() // NOS MOVEMOS A LA SIGUIENTE PANTALLA
             }else if(sharedVieModel.login.value == Options.NO){
                 // MOSTRAMOS UN MENSAJE SI NO ES POSIBLE INICIAR SESIÓN
                 this.showMessage("El usuario no existe")
@@ -51,14 +51,19 @@ class Login : Fragment() {
         }
         // BOTOM PARA VALIDAR EL FORMULARIO
         binding.btnLogin.setOnClickListener {
-            if(        this.dataVerification())
-                sharedVieModel.StartLogin(binding.userEmail.editText?.text.toString(), binding.userPassword.editText?.text.toString())
+            if(this.dataVerification())
+                // SOLICITAMOS EL INICIO DE SESIÓN
+                sharedVieModel.StartLogin(
+                    ("+52"+binding.userEmail.editText?.text.toString()),
+                    binding.userPassword.editText?.text.toString())
             else{
+                // MOSTRAMOS UN MENSAJE SI NO EXISTEN DATOS
                 this.showMessage("Debes llenar todos los campos")
             }
         }
     }
 
+    // METODO QUE NOS LLEVA A LA SIGUIENTE PANTALLA
     private fun goToNextScreen()
     {
         // CREAMOS LA ACCION DE NAVEGACIÓN Y PASAMOS EL PARAMETRO
@@ -67,11 +72,13 @@ class Login : Fragment() {
         findNavController().navigate(action)
     }
 
+    // METODO QUE MUESTRA UN MENSAJE POR PANTALLA
     private fun showMessage(mensaje: String)
     {
         Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
     }
 
+    // METODO QUE VERIFICA QUE EXISTAN DATOS
     private fun dataVerification(): Boolean
     {
         if(binding.userEmail.editText?.text.toString().isEmpty())

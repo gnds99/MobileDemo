@@ -16,7 +16,7 @@ class ApiService {
 
     private val retrofit = RetrofitHelper.getRetrofi()
 
-    // FUNCION PARA INICIAR SESIÓN
+    // SOLICITUD AL SERVIDOR PARA EL LOGIN
     suspend fun login(phone:String, password: String): UserResponse {
         return withContext(Dispatchers.IO){
             val response = retrofit.create(ApiClient::class.java).userLoginApi(Wrapper(UserLoginRequest(phone, password)))
@@ -24,10 +24,11 @@ class ApiService {
         }
     }
 
-    suspend fun OtpVerification(): SmsResponse{
+    // SOLICITUD AL S
+    suspend fun OtpVerification(numberChain:String): SmsResponse{
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(ApiClient::class.java).otpVerificationApi(prefs.getPhone(), SmsRequest("+5299181606886"))
-            response.body() ?: SmsResponse(false, "OTP incorrecto")
+            val response = retrofit.create(ApiClient::class.java).otpVerificationApi(prefs.getPhone(), SmsRequest(numberChain))
+            response.body() ?: SmsResponse(false, "OTP incorrecto", "")
         }
     }
 
