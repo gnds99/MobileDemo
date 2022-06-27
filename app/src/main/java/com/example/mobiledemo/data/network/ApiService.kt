@@ -24,7 +24,7 @@ class ApiService {
         }
     }
 
-    // SOLICITUD AL S
+    // SOLICITUD AL SERVIDOR PARA VALIDAR EL OTP
     suspend fun OtpVerification(numberChain:String): SmsResponse{
         return withContext(Dispatchers.IO) {
             val response = retrofit.create(ApiClient::class.java).otpVerificationApi(prefs.getPhone(), SmsRequest(numberChain))

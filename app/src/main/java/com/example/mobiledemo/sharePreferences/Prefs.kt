@@ -6,9 +6,9 @@ import dagger.hilt.android.HiltAndroidApp
 
 class Prefs (private val context: Context){
     private val SHARED_NAME = "MyDataBase"
-    private val SHARED_PHONE = ""
-    private val DEVICE_TOKEN = ""
-    private val XTOKEN = ""
+    private val SHARED_PHONE = "phone"
+    private val DEVICE_TOKEN = "device_token"
+    private val XTOKEN = "token"
     private val storage = context.getSharedPreferences(SHARED_NAME, 0)
 
     // METODO PARA GUARDAR EL CORREO DEL USUAIRO

@@ -45,6 +45,7 @@ class AppViewModel: ViewModel() {
                 println("OTP: " + call.sms)
                 println("Mensaje: " + call.mensaje)
                 println("Bandera: " + call.bandera)
+                println("UUI: " + prefs.getToken())
                 setOtp(call.sms) // ALMACENAMOS EL OTP
             }
             else{

@@ -12,7 +12,7 @@ class LoginUseCase {
     suspend fun invoke(phone:String, password: String): UserResponse {
         val prueba = repository.getLogin(phone,password)
         println("Aqui adamos LoginUseCase: "+ prueba.sms)
-        return repository.getLogin(phone,password)
+        return prueba
     }
 
 }
