@@ -2,7 +2,7 @@
 <resources>
 
     <dimen name="width_label">370dp</dimen>
-
+    <dimen name="width_label2">340dp</dimen>
     <dimen name="width_number">60dp</dimen>
 
     <dimen name="margin20">10dp</dimen>
@@ -15,4 +15,5 @@
     <dimen name="text">18sp</dimen>
     <dimen name="separacion">16dp</dimen>
     <dimen name="separacionFromTittle">8dp</dimen>
+    <dimen name="separacion30">30dp</dimen>
 </resources>

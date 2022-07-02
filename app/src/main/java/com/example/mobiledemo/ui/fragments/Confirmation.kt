@@ -1,5 +1,6 @@
 package com.example.mobiledemo.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mobiledemo.MainScreenActivity
 import com.example.mobiledemo.core.Options
 import com.example.mobiledemo.databinding.FragmentConfirmationBinding
 import com.example.mobiledemo.ui.viewModel.AppViewModel
@@ -44,15 +46,16 @@ class Confirmation : Fragment() {
         // VERIFICAMOS EL CAMBIO DE DATO EN EL VIEWMODEL
         sharedVieModel.otp.observe(viewLifecycleOwner) {
             showMessage(sharedVieModel.otp.value.toString()) // MOSTRAMOS EN PANTALLA EL CODIGO
-
         }
 
         // VERIFICAMOS EL CAMBIO DE DATO EN EL VIEWMODEL
         sharedVieModel.verificactionOtp.observe(viewLifecycleOwner) {
             // VERIFICACAMOS SI EL CAMBIO FUE EXITOSO
             if (sharedVieModel.verificactionOtp.value == Options.YES) {
-                this.goToNextScreen() // NOS NOVEMOS A LA SIGUIENTE PANTALLA
+                println("Estoy diciendo que yes")
+                this.goToHome() // NOS MOVEMOS A LA SIGUIENTE PANTALLA
             } else if (sharedVieModel.verificactionOtp.value == Options.NO) {
+                println("Estoy diciendo que NO")
                 // MOSTRAMOS UN MENSAJE SI AUN NO SE REALIZA EL CAMBIO
                 this.showMessage("El codigo es incorrecto")
             }
@@ -83,17 +86,13 @@ class Confirmation : Fragment() {
     }
 
 
-    // METODO QUE NOS LLEVA A LA SIGUIENTE PANTALLA
-    private fun goToNextScreen()
-    {
-        val action = ConfirmationDirections.actionConfirmationToFingerPrint()
-        findNavController().navigate(action)
-    }
-
     // METODO QUE MUESTRA UN MENSAJE
     private fun showMessage(mensaje: String)
     {
         Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
     }
 
+    private fun goToHome(){
+        startActivity(Intent(context, MainScreenActivity::class.java))
+    }
 }

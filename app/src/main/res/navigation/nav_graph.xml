@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_login_to_confirmation"
             app:destination="@id/confirmation" />
+        <action
+            android:id="@+id/action_login_to_mainScreen"
+            app:destination="@id/mainScreen" />
     </fragment>
     <fragment
         android:id="@+id/confirmation"

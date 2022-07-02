@@ -6,21 +6,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
+import com.example.mobiledemo.ui.NewPostDialogFragment
 import com.example.mobiledemo.ui.bottomAppBar.ConfigFragment
 import com.example.mobiledemo.ui.bottomAppBar.HomeFragment
 import com.example.mobiledemo.ui.bottomAppBar.ItemsFragment
 import com.example.mobiledemo.ui.bottomAppBar.MeFragment
+import com.example.mobiledemo.ui.viewModel.AppViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
 class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     // DRAWER NAVIGATION VARIABLES
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawer: DrawerLayout
+    private lateinit var floatActionButton: FloatingActionButton
+
 
     // BOTOM NAVIGATION VARIABLES
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -66,6 +74,15 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             }
             return@setOnItemSelectedListener true
         }
+
+        floatActionButton = findViewById(R.id.fab)
+        floatActionButton.setOnClickListener {
+            NewPostDialogFragment().show(supportFragmentManager, "dialog")
+        }
+
+
+        println("x-token: " + prefs.getXToken())
+        println("uui: "+ prefs.getToken())
     }
 
     // ESTOS METODOS SON PARA EL DRAWER NAVIGATION
@@ -98,7 +115,6 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         return super.onOptionsItemSelected(item)
     }
 
-
     // ESTE METODO SIRVE PARA CAMBIAR LOS FRAGMENTOS
     fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
@@ -106,6 +122,7 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         fragmentTransaction.replace(R.id.contenedorFragment, fragment)
         fragmentTransaction.commit()
     }
+
 
 
 }

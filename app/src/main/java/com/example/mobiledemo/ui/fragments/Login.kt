@@ -1,5 +1,7 @@
 package com.example.mobiledemo.ui.fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mobiledemo.MainScreenActivity
 import com.example.mobiledemo.R
 import com.example.mobiledemo.core.Options
 import com.example.mobiledemo.databinding.FragmentLoginBinding
@@ -47,6 +50,9 @@ class Login : Fragment() {
             }else if(sharedVieModel.login.value == Options.NO){
                 // MOSTRAMOS UN MENSAJE SI NO ES POSIBLE INICIAR SESIÓN
                 this.showMessage("El usuario no existe")
+            }else if(sharedVieModel.login.value == Options.HOME)
+            {
+                this.goToHome()
             }
         }
         // BOTOM PARA VALIDAR EL FORMULARIO
@@ -70,6 +76,16 @@ class Login : Fragment() {
         val action = LoginDirections.actionLoginToConfirmation()
         // NAVEGAMOS AL SIGUIENTE FRAGMENTO
         findNavController().navigate(action)
+    }
+
+    private fun goToHome()
+    {
+
+        startActivity(Intent(context, MainScreenActivity::class.java))
+        // CREAMOS LA ACCION DE NAVEGACIÓN Y PASAMOS EL PARAMETRO
+        //val action = LoginDirections.actionLoginToMainScreen()
+        // NAVEGAMOS AL SIGUIENTE FRAGMENTO
+        //findNavController().navigate(action)
     }
 
     // METODO QUE MUESTRA UN MENSAJE POR PANTALLA

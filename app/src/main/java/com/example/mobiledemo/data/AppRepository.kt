@@ -1,8 +1,11 @@
 package com.example.mobiledemo.data
 
+import com.example.mobiledemo.data.model.request.PostRequest
+import com.example.mobiledemo.data.model.response.PostResponse
 import com.example.mobiledemo.data.model.response.SmsResponse
 import com.example.mobiledemo.data.model.response.UserResponse
 import com.example.mobiledemo.data.network.ApiService
+import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 
 class AppRepository {
 
@@ -21,4 +24,16 @@ class AppRepository {
         val response = api.OtpVerification(numberChain)
         return response
     }
+
+    // CONSULTA AL SERVIDOR PARA CREAR UN POST
+    suspend fun getNewPost(post: PostRequest): PostResponse{
+        println("ESTE ES EL TOKEM DE DISPOSITIVO" + prefs.getToken())
+        println("ESE ES EL X-TOKEN"+prefs.getToken())
+        println()
+
+        val response = api.createNewPost(post)
+        return response
+    }
+
+
 }
