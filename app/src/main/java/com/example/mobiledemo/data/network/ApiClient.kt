@@ -4,10 +4,7 @@ import Wrapper
 import com.example.mobiledemo.data.model.request.PostRequest
 import com.example.mobiledemo.data.model.request.SmsRequest
 import com.example.mobiledemo.data.model.request.UserRequest
-import com.example.mobiledemo.data.model.response.PostResponse
-import com.example.mobiledemo.data.model.response.SmsResponse
-import com.example.mobiledemo.data.model.response.UserResponse
-import com.example.mobiledemo.data.model.response.VerificationUserResponse
+import com.example.mobiledemo.data.model.response.*
 import com.google.gson.JsonElement
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -26,8 +23,9 @@ interface ApiClient {
     @POST("/items/")
     suspend fun createPost(@Body post: PostRequest): Response<PostResponse>
 
-    @GET("/items")
-    suspend fun allData(@Query("search") search: String)
+    @GET("items?search=")
+    suspend fun allData(): Response<ListPostResponse>
+
 
 //    @POST("/user/create-user")
   //  suspend fun createUser(@Body User: UserRequest): Response<VerificationUserResponse>
