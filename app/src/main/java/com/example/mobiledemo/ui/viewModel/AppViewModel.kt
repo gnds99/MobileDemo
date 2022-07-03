@@ -14,6 +14,7 @@ import com.example.mobiledemo.data.model.request.PostRequest
 import com.example.mobiledemo.domain.LoginUseCase
 import com.example.mobiledemo.domain.NewPostUseCase
 import com.example.mobiledemo.domain.OtpVerificationCase
+import com.example.mobiledemo.domain.TakePostDataUseCase
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 import kotlinx.coroutines.launch
 import retrofit2.http.OPTIONS
@@ -25,6 +26,8 @@ class AppViewModel: ViewModel() {
     private var loginUseCase = LoginUseCase()
     // CASO DE USO PARA VERIFICAR EL OTP
     private var otpVerificationCase = OtpVerificationCase()
+    // CASO DE USO PARA OBTENER TODAS LAS PUBLICACIONES
+    private var allPostUseCase = TakePostDataUseCase()
 
     private var newPostUseCase = NewPostUseCase()
 
@@ -44,7 +47,7 @@ class AppViewModel: ViewModel() {
     private val _post = MutableLiveData<Options>(Options.NO_POSTED)
     val post: LiveData<Options> = _post
 
-    var ejemplo = false
+
     // ######## LLAMADAS AL SERVIDOR ########
 
     // METODO PARA SOLICITAR INICIO DE SESIÓN
@@ -107,6 +110,15 @@ class AppViewModel: ViewModel() {
         }
     }
 
+    fun StartAllPost(){
+        viewModelScope.launch {
+            val data = allPostUseCase()
+
+            if(data.bandera){
+
+            }
+        }
+    }
 
     // ######## SETTERS ########
     // METODO PARA CONFIGURAR EL ESTADO DEL LOGIN

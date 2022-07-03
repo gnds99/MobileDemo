@@ -1,6 +1,7 @@
 package com.example.mobiledemo.data
 
 import com.example.mobiledemo.data.model.request.PostRequest
+import com.example.mobiledemo.data.model.response.ListPostResponse
 import com.example.mobiledemo.data.model.response.PostResponse
 import com.example.mobiledemo.data.model.response.SmsResponse
 import com.example.mobiledemo.data.model.response.UserResponse
@@ -27,13 +28,15 @@ class AppRepository {
 
     // CONSULTA AL SERVIDOR PARA CREAR UN POST
     suspend fun getNewPost(post: PostRequest): PostResponse{
-        println("ESTE ES EL TOKEM DE DISPOSITIVO" + prefs.getToken())
-        println("ESE ES EL X-TOKEN"+prefs.getToken())
-        println()
-
+        //println("ESTE ES EL TOKEM DE DISPOSITIVO" + prefs.getToken())
+        //println("ESE ES EL X-TOKEN"+prefs.getToken())
+        //println()
         val response = api.createNewPost(post)
         return response
     }
 
-
+    suspend fun getAllData(): ListPostResponse{
+        val response = api.takeData()
+        return response
+    }
 }

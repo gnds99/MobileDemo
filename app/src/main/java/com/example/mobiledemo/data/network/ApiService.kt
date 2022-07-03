@@ -6,6 +6,7 @@ import com.example.mobiledemo.data.model.request.PhotoLocation
 import com.example.mobiledemo.data.model.request.PostRequest
 import com.example.mobiledemo.data.model.request.SmsRequest
 import com.example.mobiledemo.data.model.request.UserLoginRequest
+import com.example.mobiledemo.data.model.response.ListPostResponse
 import com.example.mobiledemo.data.model.response.PostResponse
 import com.example.mobiledemo.data.model.response.SmsResponse
 import com.example.mobiledemo.data.model.response.UserResponse
@@ -37,18 +38,25 @@ class ApiService {
     // SOLICITANDO AL SERVIDOR CREAR UNA NUEVA PUBLICACIÓN
     suspend fun createNewPost(post: PostRequest): PostResponse{
         return withContext(Dispatchers.IO){
-            println(prefs.getXToken())
-            println(prefs.getToken())
+            //println(prefs.getXToken())
+            //println(prefs.getToken())
             val response = retrofit.create(ApiClient::class.java).createPost(post)
-            if(response.isSuccessful)
+          /* if(response.isSuccessful)
             {
                 println("Entramos")
             }else{
                 println("Error")
-            }
-            PostResponse("Entre", "No info", "No photo", PhotoLocation(0.0, 0.0))
+            }*/
+            //PostResponse("Entre", "No info", "No photo", PhotoLocation(0.0, 0.0))
 
-            //response.body() ?: PostResponse("Entre", "No info", "No photo", PhotoLocation(0.0f, 0.0f))
+            response.body() ?: PostResponse("Entre", "No info", "No photo", PhotoLocation(0.0, 0.0))
+        }
+    }
+
+    suspend fun takeData(): ListPostResponse{
+        return withContext(Dispatchers.IO){
+            val response = retrofit.create(ApiClient::class.java).allData()
+            response.body() ?: ListPostResponse(false,"", emptyList())
         }
     }
 
