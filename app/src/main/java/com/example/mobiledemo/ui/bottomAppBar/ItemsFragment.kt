@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobiledemo.databinding.FragmentItemsBinding
 import com.example.mobiledemo.ui.recycleView.Datasource
 import com.example.mobiledemo.ui.recycleView.ItemCardAdapter
+import com.example.mobiledemo.ui.viewModel.AppViewModel
 
 
 class ItemsFragment : Fragment() {
@@ -16,6 +18,8 @@ class ItemsFragment : Fragment() {
     private var _binding: FragmentItemsBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
+    private val sharedVieModel: AppViewModel by activityViewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,10 +31,15 @@ class ItemsFragment : Fragment() {
     ): View {
         _binding = FragmentItemsBinding.inflate(inflater, container, false)
         // CARGANDO DATOS
-        val myDataset = Datasource().loadInformation()
-        recyclerView = binding.recyclerView
-        recyclerView.adapter = ItemCardAdapter(context, myDataset)
-        recyclerView.setHasFixedSize(true)
+
+        sharedVieModel.posData.observe(viewLifecycleOwner){
+            //val myDataset = Datasource().loadInformation()
+            val myDataset = sharedVieModel.posData.value?.item
+            recyclerView = binding.recyclerView
+            recyclerView.adapter = ItemCardAdapter(context, myDataset!!)
+            recyclerView.setHasFixedSize(true)
+        }
+
         return binding.root
     }
 

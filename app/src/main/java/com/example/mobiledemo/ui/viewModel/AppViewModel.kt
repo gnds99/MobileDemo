@@ -11,6 +11,7 @@ import com.example.mobiledemo.core.Options
 import com.example.mobiledemo.core.RetrofitHelper
 import com.example.mobiledemo.data.model.request.PhotoLocation
 import com.example.mobiledemo.data.model.request.PostRequest
+import com.example.mobiledemo.data.model.response.ListPostResponse
 import com.example.mobiledemo.domain.LoginUseCase
 import com.example.mobiledemo.domain.NewPostUseCase
 import com.example.mobiledemo.domain.OtpVerificationCase
@@ -47,6 +48,9 @@ class AppViewModel: ViewModel() {
     private val _post = MutableLiveData<Options>(Options.NO_POSTED)
     val post: LiveData<Options> = _post
 
+    // LISTA DE PUBLICACIONES
+    private val _PostData = MutableLiveData<ListPostResponse>()
+    val posData: LiveData<ListPostResponse> = _PostData
 
     // ######## LLAMADAS AL SERVIDOR ########
 
@@ -113,9 +117,9 @@ class AppViewModel: ViewModel() {
     fun StartAllPost(){
         viewModelScope.launch {
             val data = allPostUseCase()
-
+            println(data.toString())
             if(data.bandera){
-
+                _PostData.value = data
             }
         }
     }

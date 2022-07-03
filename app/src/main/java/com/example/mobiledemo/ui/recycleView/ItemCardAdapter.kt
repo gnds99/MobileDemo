@@ -9,10 +9,11 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobiledemo.R
+import com.example.mobiledemo.data.model.response.ItemPost
 
 
 class ItemCardAdapter(private val context: Context?,
-                      private val dataset: List<ItemCard>
+                      private val dataset: List<ItemPost>
 ):
     RecyclerView.Adapter<ItemCardAdapter.ItemCardViewHolder>(){
 
@@ -43,8 +44,8 @@ class ItemCardAdapter(private val context: Context?,
 
     override fun onBindViewHolder(holder: ItemCardViewHolder, position: Int) {
         val item = dataset[position]
-        holder.decripcion.text = item.descripcion
-        holder.tiempo.text = item.time
+        holder.decripcion.text = item.info
+        holder.tiempo.text = "12min"
         holder.cardView.setOnClickListener {
             Toast.makeText(context, "Haz hecho click", Toast.LENGTH_SHORT).show()
             //val context = holder.view.context
