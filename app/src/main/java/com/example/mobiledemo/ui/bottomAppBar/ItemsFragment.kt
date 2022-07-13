@@ -32,6 +32,8 @@ class ItemsFragment : Fragment() {
         _binding = FragmentItemsBinding.inflate(inflater, container, false)
         // CARGANDO DATOS
 
+
+        sharedVieModel.StartAllPost()
         sharedVieModel.posData.observe(viewLifecycleOwner){
             //val myDataset = Datasource().loadInformation()
             val myDataset = sharedVieModel.posData.value?.item
