@@ -26,6 +26,16 @@ interface ApiClient {
     @GET("items?search=")
     suspend fun allData(): Response<ListPostResponse>
 
+    @GET("/items/{id}")
+    suspend fun getItem(@Path("id") id:String): Response<SinglePostResponse>
+
+    @GET("/auth/me")
+    suspend fun getUserMe(): Response<UserMeResponse>
+
+    @GET("/home")
+    suspend fun getHome(): Response<HomeResponse>
+
+
 
 //    @POST("/user/create-user")
   //  suspend fun createUser(@Body User: UserRequest): Response<VerificationUserResponse>

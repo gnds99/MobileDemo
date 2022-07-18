@@ -1,10 +1,7 @@
 package com.example.mobiledemo.data
 
 import com.example.mobiledemo.data.model.request.PostRequest
-import com.example.mobiledemo.data.model.response.ListPostResponse
-import com.example.mobiledemo.data.model.response.PostResponse
-import com.example.mobiledemo.data.model.response.SmsResponse
-import com.example.mobiledemo.data.model.response.UserResponse
+import com.example.mobiledemo.data.model.response.*
 import com.example.mobiledemo.data.network.ApiService
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 
@@ -35,8 +32,26 @@ class AppRepository {
         return response
     }
 
+    // SOLICTUD AL SERVIDOR PARA OBTENER LA LISTA DE PUBLICACIONES
     suspend fun getAllData(): ListPostResponse{
         val response = api.takeData()
+        return response
+    }
+
+    // SOLICITUD AL SERVIDOR PARA OBTENER LA INFORMACION DE UNA PUBLICACION
+    suspend fun getOnePost(id: String): SinglePostResponse{
+        val response = api.takePost(id)
+        return response
+    }
+
+    // SOLICITANDO AL SERVIDOR OBTENER LA INFORMACION DEL USUARIO
+    suspend fun getUserInformation(): UserMeResponse{
+        val response = api.takeUserInformation()
+        return response
+    }
+
+    suspend fun getLastItemView(): HomeResponse{
+        val response = api.takeLastItemView()
         return response
     }
 }

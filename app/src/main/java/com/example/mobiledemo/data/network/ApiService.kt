@@ -2,14 +2,8 @@ package com.example.mobiledemo.data.network
 
 import Wrapper
 import com.example.mobiledemo.core.RetrofitHelper
-import com.example.mobiledemo.data.model.request.PhotoLocation
-import com.example.mobiledemo.data.model.request.PostRequest
-import com.example.mobiledemo.data.model.request.SmsRequest
-import com.example.mobiledemo.data.model.request.UserLoginRequest
-import com.example.mobiledemo.data.model.response.ListPostResponse
-import com.example.mobiledemo.data.model.response.PostResponse
-import com.example.mobiledemo.data.model.response.SmsResponse
-import com.example.mobiledemo.data.model.response.UserResponse
+import com.example.mobiledemo.data.model.request.*
+import com.example.mobiledemo.data.model.response.*
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -53,10 +47,35 @@ class ApiService {
         }
     }
 
+    // FUNCION QUE OBTIENE TODAS LA PUBLICACIONES DEL SERVIDOR
     suspend fun takeData(): ListPostResponse{
         return withContext(Dispatchers.IO){
             val response = retrofit.create(ApiClient::class.java).allData()
             response.body() ?: ListPostResponse(false,"", emptyList())
+        }
+    }
+
+    // FUNCION QUE TOMA UNA SOLA PUBLICACION
+    suspend fun takePost(id:String ): SinglePostResponse{
+        return withContext(Dispatchers.IO){
+            val response = retrofit.create(ApiClient::class.java).getItem(id)
+            response.body() ?: SinglePostResponse(ItemPost("","","",PhotoLocation(0.0,0.0),"","","",""))
+        }
+    }
+
+    // FUNCION QUE SOLICITA LA INFORMACION DEL USUARIO AL SERVIDOR
+    suspend fun takeUserInformation(): UserMeResponse{
+        return withContext(Dispatchers.IO){
+            val response = retrofit.create(ApiClient::class.java).getUserMe()
+            response.body() ?: UserMeResponse(false,"", UserRequest("","",""))
+        }
+    }
+
+    //FUNCION QUE OBTIENE DEL SERVIDOR LA ULTIMA PUBLICACION REVISADA POR EL USUARIO
+    suspend fun takeLastItemView(): HomeResponse{
+        return withContext(Dispatchers.IO){
+            val response = retrofit.create(ApiClient::class.java).getHome()
+            response.body() ?: HomeResponse(false, "", UserDataResponse("","", emptyList()))
         }
     }
 

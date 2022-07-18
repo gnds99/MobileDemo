@@ -1,13 +1,17 @@
 package com.example.mobiledemo.ui.recycleView
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobiledemo.MainActivity
+import com.example.mobiledemo.MainArticleActivity
 import com.example.mobiledemo.R
 import com.example.mobiledemo.data.model.response.ItemPost
 
@@ -45,12 +49,13 @@ class ItemCardAdapter(private val context: Context?,
     override fun onBindViewHolder(holder: ItemCardViewHolder, position: Int) {
         val item = dataset[position]
         holder.decripcion.text = item.info
-        holder.tiempo.text = "12min"
+        holder.tiempo.text = item.time
         holder.cardView.setOnClickListener {
-            Toast.makeText(context, "Haz hecho click", Toast.LENGTH_SHORT).show()
-            //val context = holder.view.context
-            //val intent: Intent = Intent(context, Article::class.java)
-            //context.startActivity(intent)
+            //Toast.makeText(context, "Haz hecho click", Toast.LENGTH_SHORT).show()
+            val context = holder.view.context
+            val intent = Intent(context, MainArticleActivity::class.java)
+            intent.putExtra("id",item.id)
+            context.startActivity(intent)
         }
     }
 

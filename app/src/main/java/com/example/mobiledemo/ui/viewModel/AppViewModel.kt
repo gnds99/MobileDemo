@@ -11,11 +11,8 @@ import com.example.mobiledemo.core.Options
 import com.example.mobiledemo.core.RetrofitHelper
 import com.example.mobiledemo.data.model.request.PhotoLocation
 import com.example.mobiledemo.data.model.request.PostRequest
-import com.example.mobiledemo.data.model.response.ListPostResponse
-import com.example.mobiledemo.domain.LoginUseCase
-import com.example.mobiledemo.domain.NewPostUseCase
-import com.example.mobiledemo.domain.OtpVerificationCase
-import com.example.mobiledemo.domain.TakePostDataUseCase
+import com.example.mobiledemo.data.model.response.*
+import com.example.mobiledemo.domain.*
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 import kotlinx.coroutines.launch
 import retrofit2.http.OPTIONS
@@ -29,8 +26,14 @@ class AppViewModel: ViewModel() {
     private var otpVerificationCase = OtpVerificationCase()
     // CASO DE USO PARA OBTENER TODAS LAS PUBLICACIONES
     private var allPostUseCase = TakePostDataUseCase()
-
+    // CASO DE USO PARA CREAR UNA NUEVA PUBLICACION
     private var newPostUseCase = NewPostUseCase()
+    // CASO DE USO PARA OBTNER LA INFORMACION DE UNA SOLA PUBLICACION
+    private var singlePost = TakeSinglePostUseCase()
+    // CASO DE USO PARA OBTENER LA INFORMACION DEL USUARIO
+    private var userInformation = TakeUserInformationUseCAse()
+    // CASO DE USO PARA OBTENER LA ULTIMA PUBLICACION ABIERTA POR EL USUARIO
+    private var lasItemView = TakeLastItemViewUseCase()
 
     // STATUS DEL LOGIN
     private val _login = MutableLiveData<Options>(Options.FIRST)
@@ -51,6 +54,18 @@ class AppViewModel: ViewModel() {
     // LISTA DE PUBLICACIONES
     private val _PostData = MutableLiveData<ListPostResponse>()
     val posData: LiveData<ListPostResponse> = _PostData
+
+    // INFORMACION DEL POST SELECCIONADO
+    private val _singlePostData = MutableLiveData<SinglePostResponse>()
+    val singlePostData: LiveData<SinglePostResponse> = _singlePostData
+
+    // INFORMARICION DEL USUARIO
+    private val _meInformation = MutableLiveData<UserMeResponse>()
+    val meInformation: LiveData<UserMeResponse> = _meInformation
+
+    // GUARDANDO LA ULTIMA PUBLICACION
+    private val _lastPost = MutableLiveData<HomeResponse>()
+    val lastPost: LiveData<HomeResponse> = _lastPost
 
     // ######## LLAMADAS AL SERVIDOR ########
 
@@ -123,6 +138,32 @@ class AppViewModel: ViewModel() {
             }
         }
     }
+
+    fun starGetSinglePost(id:String){
+        viewModelScope.launch {
+            val data = singlePost.invoke(id)
+            println("CONSIGUE LA INFORMACION DE UN POST")
+            println(data)
+            _singlePostData.value = data
+        }
+    }
+
+    fun startGetMe(){
+        viewModelScope.launch {
+            val data = userInformation.invoke()
+            _meInformation.value = data
+        }
+    }
+
+    fun startLastItemView(){
+        viewModelScope.launch {
+            val data = lasItemView.invoke()
+            _lastPost.value = data
+            println("ENTRE AL METODO: AQUI ESTA LA INFORMACION ##################################")
+            println(data)
+        }
+    }
+
 
     // ######## SETTERS ########
     // METODO PARA CONFIGURAR EL ESTADO DEL LOGIN
