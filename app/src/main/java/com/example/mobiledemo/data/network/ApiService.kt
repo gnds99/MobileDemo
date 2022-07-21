@@ -59,7 +59,7 @@ class ApiService {
     suspend fun takePost(id:String ): SinglePostResponse{
         return withContext(Dispatchers.IO){
             val response = retrofit.create(ApiClient::class.java).getItem(id)
-            response.body() ?: SinglePostResponse(ItemPost("","","",PhotoLocation(0.0,0.0),"","","",""))
+            response.body() ?: SinglePostResponse(false,ItemPost("","","",PhotoLocation(0.0,0.0),"","","",""))
         }
     }
 

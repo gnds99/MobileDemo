@@ -5,6 +5,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -12,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.mobiledemo.core.Options
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 import com.example.mobiledemo.ui.NewPostDialogFragment
 import com.example.mobiledemo.ui.bottomAppBar.ConfigFragment
@@ -36,6 +38,8 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_screen)
+        val screen = intent?.extras?.getInt("screen", 0)
+
         // DRAWER NAVIGATION CONFIGURACION
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar_main)
         setSupportActionBar(toolbar)
@@ -51,15 +55,6 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener(this)
-
-        // CONFIGURANDO UNA PANTALLA PRINCIPAL
-        supportFragmentManager.beginTransaction() // configurando fragment principal
-            .add(R.id.contenedorFragment, HomeFragment()) //contenedor y fragmento
-            .commit() // iniciando
-
 
         // BOTOM NAVIGATION CONFIGURATION
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -80,6 +75,9 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             NewPostDialogFragment().show(supportFragmentManager, "dialog")
         }
 
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
+        initScreen(HomeFragment())
 
         println("x-token: " + prefs.getXToken())
         println("uui: "+ prefs.getToken())
@@ -123,6 +121,11 @@ class MainScreenActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         fragmentTransaction.commit()
     }
 
+    fun initScreen(fragment: Fragment){
+        supportFragmentManager.beginTransaction() // configurando fragment principal
+            .add(R.id.contenedorFragment, fragment) //contenedor y fragmento
+            .commit() // iniciando
+    }
 
 
 }

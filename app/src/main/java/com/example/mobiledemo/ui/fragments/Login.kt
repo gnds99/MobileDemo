@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobiledemo.MainScreenActivity
@@ -54,6 +55,9 @@ class Login : Fragment() {
             {
                 this.goToHome()
             }
+        }
+        sharedVieModel.isLoading.observe(viewLifecycleOwner){
+            binding.progress.isVisible = it
         }
         // BOTOM PARA VALIDAR EL FORMULARIO
         binding.btnLogin.setOnClickListener {

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.example.mobiledemo.MainArticleActivity
 import com.example.mobiledemo.R
@@ -38,6 +39,9 @@ class HomeFragment : Fragment() {
                 intent.putExtra("id",item.id)
                 context?.startActivity(intent)
             }
+        }
+        sharedVieModel.isLoading.observe(viewLifecycleOwner){
+            binding.progress.isVisible = it
         }
 
         return binding.root

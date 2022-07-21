@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mobiledemo.MainScreenActivity
@@ -25,11 +26,6 @@ class Confirmation : Fragment() {
     private var _binding: FragmentConfirmationBinding? = null
     private val binding get() = _binding!!
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,10 +48,8 @@ class Confirmation : Fragment() {
         sharedVieModel.verificactionOtp.observe(viewLifecycleOwner) {
             // VERIFICACAMOS SI EL CAMBIO FUE EXITOSO
             if (sharedVieModel.verificactionOtp.value == Options.YES) {
-                println("Estoy diciendo que yes")
                 this.goToHome() // NOS MOVEMOS A LA SIGUIENTE PANTALLA
             } else if (sharedVieModel.verificactionOtp.value == Options.NO) {
-                println("Estoy diciendo que NO")
                 // MOSTRAMOS UN MENSAJE SI AUN NO SE REALIZA EL CAMBIO
                 this.showMessage("El codigo es incorrecto")
             }
@@ -71,6 +65,9 @@ class Confirmation : Fragment() {
                 showMessage("El codigo es incorrecto")
             }
 
+        }
+        sharedVieModel.isLoading.observe(viewLifecycleOwner){
+            binding.progress.isVisible = it
         }
     }
 

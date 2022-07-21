@@ -20,10 +20,10 @@
                 android:id="@+id/toolbar_main"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
+                android:background="@color/white"
                 android:textAlignment="center"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:title="@string/app_name" />
+                app:layout_scrollFlags="scroll|enterAlways">
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
         <FrameLayout
@@ -61,9 +61,10 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#6E6C6C"
         android:contentDescription="TODO"
-        android:backgroundTint="#6d4c40"
         android:src="@drawable/ic_control"
         app:layout_anchor="@id/bottomAppBar"
-        tools:ignore="ImageContrastCheck"/>
+        app:rippleColor="#000000"
+        tools:ignore="ImageContrastCheck" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

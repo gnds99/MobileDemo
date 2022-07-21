@@ -67,11 +67,15 @@ class AppViewModel: ViewModel() {
     private val _lastPost = MutableLiveData<HomeResponse>()
     val lastPost: LiveData<HomeResponse> = _lastPost
 
+    // VARIABLE QUE VERIFICA SI YA SE REALIZO LA CONSULTA
+    val isLoading = MutableLiveData<Boolean>()
+
     // ######## LLAMADAS AL SERVIDOR ########
 
     // METODO PARA SOLICITAR INICIO DE SESIÓN
     fun StartLogin(phone:String, password: String){
         viewModelScope.launch {
+            isLoading.postValue(true)
             val call = loginUseCase.invoke(phone, password)
             if(call.bandera)
             {
@@ -85,13 +89,16 @@ class AppViewModel: ViewModel() {
                     println("Bandera: " + call.bandera)
                     println("UUI: " + prefs.getToken())
                     setOtp(call.sms!!) // ALMACENAMOS EL OTP
+                    isLoading.postValue(false)
                 }else {
                     setLogin(Options.HOME) // INDICAMOS QUE FUE POSIBLE INICIAR SESIÓN
                     println("ENTRAMOS A HOME")
+                    isLoading.postValue(false)
                 }
             }
             else{
                 setLogin(Options.NO) // INDICAMOS QUE NO FUE POSIBLE VERIFICAR EL INICIO DE SESIÓN
+                isLoading.postValue(false)
             }
         }
     }
@@ -99,6 +106,7 @@ class AppViewModel: ViewModel() {
     // METODO PARA CONFIRMAR EL OTP INGRESADO POR EL USUARIO
     fun StarVerificationOtp(numberChain:String){
         viewModelScope.launch {
+            isLoading.postValue(true)
             //VERIFICAMOS SI EL OTP ES CORRECTO
             if(otpVerificationCase(numberChain).bandera)
             {
@@ -107,8 +115,10 @@ class AppViewModel: ViewModel() {
                 println("X-TOKEN: "+ otpVerificationCase(numberChain).xToken)
                 println("Mensaje: " + otpVerificationCase(numberChain).message)
                 setOtpVerificaction(Options.YES) // INDICAMOS QUE FUE POSIBLE INICIAR SESIÓN
+                isLoading.postValue(false)
             }else{
                 setOtpVerificaction(Options.NO) // INDICAMOS QUE NO FUE POSIBLE VERIFICAR EL INICIO DE SESIÓN
+                isLoading.postValue(false)
             }
         }
     }
@@ -131,36 +141,59 @@ class AppViewModel: ViewModel() {
 
     fun StartAllPost(){
         viewModelScope.launch {
+            isLoading.postValue(true)
             val data = allPostUseCase()
-            println(data.toString())
             if(data.bandera){
                 _PostData.value = data
+                isLoading.postValue(false)
+            }else{
+                isLoading.postValue(false)
             }
         }
     }
 
     fun starGetSinglePost(id:String){
         viewModelScope.launch {
+            isLoading.postValue(true)
             val data = singlePost.invoke(id)
-            println("CONSIGUE LA INFORMACION DE UN POST")
-            println(data)
-            _singlePostData.value = data
+            if(data.bandera)
+            {
+                _singlePostData.value = data
+                isLoading.postValue(false)
+            }else{
+                isLoading.postValue(false)
+            }
         }
     }
 
     fun startGetMe(){
         viewModelScope.launch {
+            isLoading.postValue(true)
             val data = userInformation.invoke()
-            _meInformation.value = data
+            if(data.bandera)
+            {
+                _meInformation.value = data
+                isLoading.postValue(false)
+            }else{
+                isLoading.postValue(false)
+            }
+
         }
     }
 
     fun startLastItemView(){
         viewModelScope.launch {
+            isLoading.postValue(true)
             val data = lasItemView.invoke()
-            _lastPost.value = data
-            println("ENTRE AL METODO: AQUI ESTA LA INFORMACION ##################################")
-            println(data)
+            if(data.bandera){
+                _lastPost.value = data
+                println("ENTRE AL METODO: AQUI ESTA LA INFORMACION ##################################")
+                println(data)
+                isLoading.postValue(false)
+            }else{
+                isLoading.postValue(false)
+            }
+
         }
     }
 

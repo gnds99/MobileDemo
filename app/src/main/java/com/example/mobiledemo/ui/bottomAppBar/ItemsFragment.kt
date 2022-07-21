@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobiledemo.databinding.FragmentItemsBinding
@@ -40,6 +41,9 @@ class ItemsFragment : Fragment() {
             recyclerView = binding.recyclerView
             recyclerView.adapter = ItemCardAdapter(context, myDataset!!)
             recyclerView.setHasFixedSize(true)
+        }
+        sharedVieModel.isLoading.observe(viewLifecycleOwner){
+            binding.progress.isVisible = it
         }
 
         return binding.root

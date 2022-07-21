@@ -15,7 +15,7 @@
         android:layout_width="@dimen/width_label"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Email"
+        android:hint="Phone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
@@ -76,6 +76,16 @@
         app:srcCompat="@drawable/ic_baseline_code_24"
         tools:ignore="ImageContrastCheck"
         android:contentDescription="@string/todo" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
