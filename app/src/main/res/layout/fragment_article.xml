@@ -47,6 +47,7 @@
 
             <Button
                 android:id="@+id/buttonejemplo"
+                android:text="Presioname prro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

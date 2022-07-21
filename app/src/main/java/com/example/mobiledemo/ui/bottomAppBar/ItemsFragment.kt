@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobiledemo.databinding.FragmentItemsBinding
-import com.example.mobiledemo.ui.recycleView.Datasource
 import com.example.mobiledemo.ui.recycleView.ItemCardAdapter
 import com.example.mobiledemo.ui.viewModel.AppViewModel
 

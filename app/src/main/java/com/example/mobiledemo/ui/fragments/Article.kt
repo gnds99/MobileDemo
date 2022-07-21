@@ -1,6 +1,5 @@
 package com.example.mobiledemo.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import com.example.mobiledemo.MainArticleActivity
-import com.example.mobiledemo.MainScreenActivity
-import com.example.mobiledemo.R
-import com.example.mobiledemo.core.Options
-import com.example.mobiledemo.data.model.request.PhotoLocation
 import com.example.mobiledemo.databinding.FragmentArticleBinding
-import com.example.mobiledemo.databinding.FragmentItemsBinding
 import com.example.mobiledemo.ui.viewModel.AppViewModel
 
 
@@ -40,18 +33,19 @@ class Article(val id:String) : Fragment() {
         sharedVieModel.singlePostData.observe(viewLifecycleOwner){
             binding.articleTitle.text = sharedVieModel.singlePostData.value?.item?.title
             binding.articleDescription.text = sharedVieModel.singlePostData.value!!.item.longInfo
-            binding.buttonejemplo.setOnClickListener {
-            }
         }
         sharedVieModel.isLoading.observe(viewLifecycleOwner){
             binding.progress.isVisible = it
         }
 
+        val bottomSheetFragment = GoogleMaps()
+        binding.buttonejemplo.setOnClickListener {
+            Toast.makeText(context, "ENTRE", Toast.LENGTH_SHORT).show()
+            bottomSheetFragment.show(parentFragmentManager, "BottomSheetDialog")
+        }
+
         return binding.root
     }
 
-    fun getCoordenadas(): PhotoLocation? {
-        return sharedVieModel.singlePostData.value?.item?.location
-    }
 
 }

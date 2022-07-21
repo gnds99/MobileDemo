@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.mobiledemo.ui.fragments.Article
+import com.example.mobiledemo.ui.fragments.GoogleMaps
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -22,16 +23,18 @@ class MainArticleActivity : AppCompatActivity() {
             finish()
         }
         val fragmento = Article(id!!)
+        val fragment2 = GoogleMaps()
         // CONFIGURANDO UNA PANTALLA PRINCIPAL
         supportFragmentManager.beginTransaction() // configurando fragment principal
             .add(R.id.nav_host_fragment_article,fragmento ) //contenedor y fragmento
             .commit() // iniciando
 
-        val sheet = findViewById<FrameLayout>(R.id.sheet)
+        //val sheet = findViewById<FrameLayout>(R.id.sheet)
+        /*
         BottomSheetBehavior.from(sheet).apply {
             peekHeight=150
             this.state=BottomSheetBehavior.STATE_COLLAPSED
-        }
+        }*/
 
         }
 
