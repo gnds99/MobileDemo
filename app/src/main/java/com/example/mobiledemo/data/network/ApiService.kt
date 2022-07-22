@@ -8,6 +8,8 @@ import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 
 class ApiService {
 
@@ -76,6 +78,14 @@ class ApiService {
         return withContext(Dispatchers.IO){
             val response = retrofit.create(ApiClient::class.java).getHome()
             response.body() ?: HomeResponse(false, "", UserDataResponse("","", emptyList()))
+        }
+    }
+
+    // FUNCION QUE ACTUALIZA LA FOTO DE PERFIL DEL USUARIO
+    suspend fun updateUserPhoto(photo: MultipartBody.Part): ResponseBody{
+        return withContext(Dispatchers.IO){
+            val response = retrofit.create(ApiClient::class.java).uploadPhoto(photo)
+            response.body()!!
         }
     }
 

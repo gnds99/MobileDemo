@@ -15,6 +15,7 @@ import com.example.mobiledemo.data.model.response.*
 import com.example.mobiledemo.domain.*
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import retrofit2.http.OPTIONS
 
 
@@ -34,6 +35,8 @@ class AppViewModel: ViewModel() {
     private var userInformation = TakeUserInformationUseCAse()
     // CASO DE USO PARA OBTENER LA ULTIMA PUBLICACION ABIERTA POR EL USUARIO
     private var lasItemView = TakeLastItemViewUseCase()
+    // CASO DE USO PARA ACTUALIZAR LA FOTO DE PERFIL DEL USUARIO
+    private var updatePhoto = UpdatePhotoUseCase()
 
     // STATUS DEL LOGIN
     private val _login = MutableLiveData<Options>(Options.FIRST)
@@ -194,6 +197,13 @@ class AppViewModel: ViewModel() {
                 isLoading.postValue(false)
             }
 
+        }
+    }
+
+    fun startUpdatePhoto(photo: MultipartBody.Part){
+        viewModelScope.launch {
+            val data = updatePhoto.invoke(photo)
+            print(data.toString())
         }
     }
 

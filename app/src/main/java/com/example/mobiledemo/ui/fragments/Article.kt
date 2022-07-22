@@ -40,7 +40,6 @@ class Article(val id:String) : Fragment() {
 
         val bottomSheetFragment = GoogleMaps()
         binding.buttonejemplo.setOnClickListener {
-            Toast.makeText(context, "ENTRE", Toast.LENGTH_SHORT).show()
             bottomSheetFragment.show(parentFragmentManager, "BottomSheetDialog")
         }
 

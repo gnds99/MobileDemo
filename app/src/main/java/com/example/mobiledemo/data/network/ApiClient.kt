@@ -6,6 +6,8 @@ import com.example.mobiledemo.data.model.request.SmsRequest
 import com.example.mobiledemo.data.model.request.UserRequest
 import com.example.mobiledemo.data.model.response.*
 import com.google.gson.JsonElement
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.http.*
@@ -34,6 +36,11 @@ interface ApiClient {
 
     @GET("/home")
     suspend fun getHome(): Response<HomeResponse>
+
+
+    @Multipart
+    @PUT("/user")
+    suspend fun uploadPhoto(@Part photo: MultipartBody.Part) : Response<ResponseBody>
 
 
 

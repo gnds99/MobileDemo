@@ -4,6 +4,8 @@ import com.example.mobiledemo.data.model.request.PostRequest
 import com.example.mobiledemo.data.model.response.*
 import com.example.mobiledemo.data.network.ApiService
 import com.example.mobiledemo.sharePreferences.UserApplication.Companion.prefs
+import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 
 class AppRepository {
 
@@ -52,6 +54,11 @@ class AppRepository {
 
     suspend fun getLastItemView(): HomeResponse{
         val response = api.takeLastItemView()
+        return response
+    }
+
+    suspend fun updatePhoto(photo: MultipartBody.Part): ResponseBody{
+        val response = api.updateUserPhoto(photo)
         return response
     }
 }
